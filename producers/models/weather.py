@@ -98,8 +98,8 @@ class Weather(Producer):
         )
         resp.raise_for_status()
 
-        logger.debug(
-            "sent weather data to kafka, temp: %s, status: %s",
-            self.temp,
-            self.status.name,
-        )
+#         logger.debug(
+#             "sent weather data to kafka, temp: %s, status: %s",
+#             self.temp,
+#             self.status.name,
+#         )
