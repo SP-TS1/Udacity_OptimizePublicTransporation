@@ -35,7 +35,7 @@ class KafkaConsumer:
         self.broker_properties = {
             "bootstrap.servers": "PLAINTEXT://localhost:9092",
             "group.id": f"{self.topic_name_pattern}",
-            "auto.offset.rest": self.offset_earliest
+            "auto.offset.rest": 'earliest' if offset_earliest else 'latest'
         }
 
         # TODO: Create the Consumer, using the appropriate type.
@@ -53,7 +53,6 @@ class KafkaConsumer:
         """Callback for when topic assignment takes place"""
         # TODO: If the topic is configured to use `offset_earliest` set the partition offset to
         # the beginning or earliest
-        logger.info("on_assign is incomplete - skipping")
         for partition in partitions:
             if consumer.offset_earliest:
                 partition.offset = OFFSET_BEGINNING
@@ -75,16 +74,16 @@ class KafkaConsumer:
         # Additionally, make sure you return 1 when a message is processed, and 0 when no message
         # is retrieved.
         while True:
-        message = self.consumer.poll(self.consumer.consume_timeout)
-        if message is None:
-            print("no message received by consumer")
-            return 0
-        elif message.error() is not None:
-            print(f"error from consumer {message.error()}")
-            return 0
-        else:
-            print(f"consumed message {message.key()}: {message.value()}")
-            return 1
+            message = self.consumer.poll(self.consumer.consume_timeout)
+            if message is None:
+                print("no message received by consumer")
+                return 0
+            elif message.error() is not None:
+                print(f"error from consumer {message.error()}")
+                return 0
+            else:
+                print(f"consumed message {message.key()}: {message.value()}")
+                return 1
 
 
     def close(self):

@@ -23,7 +23,7 @@ KSQL_URL = "http://localhost:8088"
 
 KSQL_STATEMENT = """
 CREATE TABLE turnstile (
-    staion_id INTEGER,
+    station_id INTEGER,
     station_name VARCHAR,
     line VARCHAR
 ) WITH (
@@ -34,9 +34,9 @@ CREATE TABLE turnstile (
 
 CREATE TABLE turnstile_summary 
     WITH (VALUE_FORMAT = 'JSON') AS
-    SELECT station_id, COUNT(*) as COUNT
+    SELECT station_id, COUNT(station_id) as COUNT
     FROM turnstile
-    GROUP BY staton_id; 
+    GROUP BY station_id; 
 """
 
 

@@ -78,7 +78,7 @@ class Weather(Producer):
            # TODO: What URL should be POSTed to?
            f"{Weather.rest_proxy_url}/topics/{self.topic_name}",
            # TODO: What Headers need to bet set?
-           headers={"Content-Type": "application.vnd.kafka.avro.v2+json"},
+           headers={"Content-Type": "application/vnd.kafka.avro.v2+json"},
            data=json.dumps(
                {
                    # TODO: Provide key schema, value schema, and records
@@ -98,8 +98,8 @@ class Weather(Producer):
         )
         resp.raise_for_status()
 
-        logger.debug(
-            "sent weather data to kafka, temp: %s, status: %s",
-            self.temp,
-            self.status.name,
-        )
+#         logger.debug(
+#             "sent weather data to kafka, temp: %s, status: %s",
+#             self.temp,
+#             self.status.name,
+#         )
